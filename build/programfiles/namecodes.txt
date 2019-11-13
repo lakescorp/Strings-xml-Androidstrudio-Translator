@@ -1,0 +1,9 @@
+andstring
+buttontheme
+first_name
+gobutton
+lovestring
+missingnames
+result
+segundo_nombre
+snackbartext
