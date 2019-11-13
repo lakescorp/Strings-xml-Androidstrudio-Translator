@@ -25,7 +25,7 @@ You can add as many elements as you like, but remind to invrease time lapse betw
 ## Default namecode path
 The default input path is: "programfiles/namecodes.txt".  
 Your elements should be placed in a file with the following format:  
-Ej:
+Ej:  
 ![Anotación 2019-11-13 173209](https://user-images.githubusercontent.com/57636815/68783610-8c020080-063b-11ea-99ed-ddd8019c7c05.png)
 
 
