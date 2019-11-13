@@ -76,20 +76,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 			    
 				 readoriginfile();
 			    
-			 	/* Ask for output path */
-			    
-			    System.out.println("The default output path is \" the project path \"");
-			    System.out.println("Do you want this default path?(Y/n)");
-
-			    String customoutput = myObj.next().toLowerCase();  // Read user input
-			    if(customoutput.matches("[Nn]")) {
-			    	  System.out.println("Please introduce your custom output path");
-
-			    	  outputPath = myObj.next();
-			    	  
-			    	  System.out.println("Your custom output path is: " + outputPath);
-			    }
-			    
 			 	/* Ask for namecodePath path */
 			    
 			    System.out.println("The default namecode path is \""+namecodePath+"\"");
@@ -105,6 +91,28 @@ import javax.xml.parsers.DocumentBuilderFactory;
 			    }
 			    
 				 anteesvrito();
+				 
+				 if(namecode.size()==input.size()) {
+			    	  System.out.println("The size of the lists are: " + namecode.size());
+				 }else {
+			    	  System.out.println("The size of the lists are not equal and might have problems, please make sure that your files are OK. "); 
+			    	  System.out.println("Name code file size:"+namecode.size());
+			    	  System.out.println("Input file size: "+input.size());
+				 }
+				 
+				 /* Ask for output path */
+				    
+				 System.out.println("The default output path is \" the project path \"");
+				 System.out.println("Do you want this default path?(Y/n)");
+
+				 String customoutput = myObj.next().toLowerCase();  // Read user input
+				 if(customoutput.matches("[Nn]")) {
+					 System.out.println("Please introduce your custom output path");
+
+					 outputPath = myObj.next();
+				    	  
+					 System.out.println("Your custom output path is: " + outputPath);
+				 }
 			    
 			 	/* Ask for waitime path */
 			    
