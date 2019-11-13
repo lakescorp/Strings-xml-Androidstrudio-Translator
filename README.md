@@ -32,6 +32,7 @@ Ej:
 ## Default output path
 The default output path is your project path.  
 If you dont change the default name, your files will look like:  
+Ej:  
 ![Anotación 2019-11-13 173515](https://user-images.githubusercontent.com/57636815/68783945-0fbbed00-063c-11ea-8746-6d5115b34685.png)
 ![Anotación 2019-11-13 173542](https://user-images.githubusercontent.com/57636815/68783932-0d599300-063c-11ea-8d02-82e3ab1f8fb2.png)
 
