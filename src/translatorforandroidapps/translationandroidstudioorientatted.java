@@ -6,9 +6,9 @@ package translatorforandroidapps;
 	import java.io.FileReader;
 	import java.io.IOException;
 	import java.util.ArrayList;
-import java.util.Scanner;
+	import java.util.Scanner;
 
-import javax.xml.parsers.DocumentBuilderFactory;
+	import javax.xml.parsers.DocumentBuilderFactory;
 	import javax.xml.parsers.ParserConfigurationException;
 	import javax.xml.parsers.DocumentBuilder;
 	import javax.xml.transform.Transformer;
@@ -18,6 +18,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 	import org.w3c.dom.Attr;
 	import org.w3c.dom.Document;
 	import org.w3c.dom.Element;
+	import org.w3c.dom.NamedNodeMap;
+	import org.w3c.dom.Node;
+	import org.w3c.dom.NodeList;
+
 	import java.io.File;
 
 
@@ -26,11 +30,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 		 static ArrayList<String> alllenguages = new ArrayList<String>();
 		 static ArrayList<String> namecode = new ArrayList<String>();
 		 static ArrayList<String> xmlarray = new ArrayList<String>();
-		 static String inputPath = "programfiles/input.txt"; // Path of the input file
+		 static String inputPath = "programfiles/strings.xml"; // Path of the input file
 		 static String lenguagePath = "programfiles/LenguageCodesToBeTranslated.txt"; // Path of the input file
-		 static String namecodePath = "programfiles/namecodes.txt"; // Path of the input file
 		 static String outputPath = ""; // Path of the output path
 		 static int waitime = 3000; // Waittime between translations
+		 
+		 
 
 		
 		 public static void main( String[] args ) throws IOException, InterruptedException, ParserConfigurationException {
@@ -73,32 +78,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 			    	  
 			    	  System.out.println("Your custom input path is: " + inputPath);
 			    }
-			    
-				 readoriginfile();
-			    
-			 	/* Ask for namecodePath path */
-			    
-			    System.out.println("The default namecode path is \""+namecodePath+"\"");
-			    System.out.println("Do you want this default namecode path?(Y/n)");
-			    
-			    String customfilename = myObj.next().toLowerCase();  // Read user input
-			    if(customfilename.matches("[Nn]")) {
-			    	  System.out.println("Please introduce your custom namecode path");
-
-			    	  namecodePath = myObj.next();
-			    	  
-			    	  System.out.println("Your custom namecode path is: " + namecodePath);
-			    }
-			    
-				 anteesvrito();
-				 
-				 if(namecode.size()==input.size()) {
-			    	  System.out.println("The size of the lists are: " + namecode.size());
-				 }else {
-			    	  System.out.println("The size of the lists are not equal and might have problems, please make sure that your files are OK. "); 
-			    	  System.out.println("Name code file size:"+namecode.size());
-			    	  System.out.println("Input file size: "+input.size());
-				 }
+			    readXml(inputPath);
 				 
 				 /* Ask for output path */
 				    
@@ -143,28 +123,33 @@ import javax.xml.parsers.DocumentBuilderFactory;
 			 
 		 }
 
-		
-		private static void readoriginfile() { // Read the input file
-			 try (FileReader reader = new FileReader(inputPath);
-		             BufferedReader br = new BufferedReader(reader)) {
-
-		            // read line by line
-		            String line;
-		            while ((line = br.readLine()) != null) {
-		                input.add(line);
-		            }
-					 System.out.println("Original file readed");
-					 System.out.println(input);
-
-		        } catch (IOException e) {
-		            System.err.format("IOException: %s%n", e);
-		        }
-			
-		}
 
 		public static String translatorfunction(String input, String finalidioma) throws IOException { // Translate the strings
 
 			return 	GoogleTranslate.translate(finalidioma, input);
+		}
+		
+		static void readXml(String path) { // Read original xml
+			try {
+
+				File file = new File(path);
+
+				DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
+			                             .newDocumentBuilder();
+
+				Document doc = dBuilder.parse(file);
+
+				//System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+
+				if (doc.hasChildNodes()) {
+
+					printNote(doc.getChildNodes());
+
+				}
+
+			    } catch (Exception e) {
+				System.out.println(e.getMessage());
+			    }
 		}
 		
 	    static void translatearray(String lenguage)  throws IOException, ParserConfigurationException  // Create the xml
@@ -244,24 +229,68 @@ import javax.xml.parsers.DocumentBuilderFactory;
 	    			
 	    	
 	    }
-		   static void anteesvrito() { // Read namecode files
-	    	   try (FileReader reader = new FileReader(namecodePath);
-	    	              BufferedReader br = new BufferedReader(reader)) {
+		   private static void printNote(NodeList nodeList) { // Get info of the nodes
 
-	    	             // read line by line
-	    	             String line;
-	    	             while ((line = br.readLine()) != null) {
-	    	            	 namecode.add(line);
-	    	             }
-	    	     System.out.println("Namecode file readed");
-				 System.out.println(namecode);
+			    for (int count = 0; count < nodeList.getLength(); count++) { // Pass program for all the nodes
 
-	    	         } catch (IOException e) {
-	    	             System.err.format("IOException: %s%n", e);
-	    	         }
+				Node tempNode = nodeList.item(count); // Take the node
 
-			   	
-			   }
+				// make sure it's element node.
+				if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+
+					// get node name and value
+				//	System.out.println("\nNode Name =" + tempNode.getNodeName() + " [OPEN]");
+					//System.out.println("VAlue =" + tempNode.getTextContent());
+					if(tempNode.getNodeName()=="string") { // add only info of string nodes
+
+						namecode.add(tempNode.getTextContent());
+
+					if (tempNode.hasAttributes()) { // see if it has atributes
+
+						// get attributes names and values
+						NamedNodeMap nodeMap = tempNode.getAttributes();
+						Boolean untranslatable = false; // boolean for discard de untranslatable words
+						for (int i = 0; i < nodeMap.getLength(); i++) { // see all atributes in node
+
+							Node node = nodeMap.item(i);
+
+							//System.out.println("atributo : " + node.getNodeName());
+							//System.out.println("namecode : " + node.getNodeValue());
+							input.add(node.getNodeValue()); // add value of node
+							if(node.getNodeName()=="translatable") { // if its untranslatable discard
+
+								untranslatable=true;
+							}
+
+
+						}
+						if(untranslatable==true) { // delete the discarded
+							//System.out.println(namecode.size());
+							//System.out.println(input.size());
+
+							namecode.remove(namecode.size()-1);	
+							input.remove(input.size()-1);							
+							input.remove(input.size()-1);
+							
+						}
+
+					}
+
+					}
+
+					if (tempNode.hasChildNodes()) {
+
+						// loop again if has child nodes
+						printNote(tempNode.getChildNodes());
+
+					}
+
+					//System.out.println("Node Name =" + tempNode.getNodeName() + " [CLOSE]");
+
+				}
+
+			    }
+		   }
 
 	}
 
