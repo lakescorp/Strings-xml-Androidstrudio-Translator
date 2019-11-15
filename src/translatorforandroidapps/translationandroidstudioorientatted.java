@@ -268,9 +268,9 @@ package translatorforandroidapps;
 							//System.out.println(namecode.size());
 							//System.out.println(input.size());
 
-							input.remove(namecode.size()-1);	
-							namecode.remove(input.size()-1);							
-							namecode.remove(input.size()-1);
+							input.remove(input.size()-1);	
+							namecode.remove(namecode.size()-1);							
+							namecode.remove(namecode.size()-1);
 							
 						}
 
