@@ -16,17 +16,11 @@ The file looks like:
 Lenguage codes can be added.
 
 ## Default input path
-The default input path is: "programfiles/input.txt".  
+The default input path is: "programfiles/strings.xml".  
 Your elements should be placed in a file with the following format:  
 ![input_screenshot](https://user-images.githubusercontent.com/57636815/68776582-9ec30800-0630-11ea-947a-f2cc0915fc7a.png)
 
-You can add as many elements as you like, but remind to invrease time lapse between translations to not be banned.
-
-## Default namecode path
-The default input path is: "programfiles/namecodes.txt".  
-Your elements should be placed in a file with the following format:  
-Ej:  
-![Anotación 2019-11-13 173209](https://user-images.githubusercontent.com/57636815/68783610-8c020080-063b-11ea-99ed-ddd8019c7c05.png)
+You can have as many elements as you like, but remind to increase time lapse between translations to not be banned.
 
 
 ## Default output path
