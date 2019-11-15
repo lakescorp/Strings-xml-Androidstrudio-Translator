@@ -18,7 +18,8 @@ Lenguage codes can be added.
 ## Default input path
 The default input path is: "programfiles/strings.xml".  
 Your elements should be placed in a file with the following format:  
-![input_screenshot](https://user-images.githubusercontent.com/57636815/68776582-9ec30800-0630-11ea-947a-f2cc0915fc7a.png)
+![Anotación 2019-11-15 150701](https://user-images.githubusercontent.com/57636815/68949170-bed20300-07b9-11ea-8e82-244231515861.png)
+
 
 You can have as many elements as you like, but remind to increase time lapse between translations to not be banned.
 
