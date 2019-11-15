@@ -243,7 +243,7 @@ package translatorforandroidapps;
 					//System.out.println("VAlue =" + tempNode.getTextContent());
 					if(tempNode.getNodeName()=="string") { // add only info of string nodes
 
-						namecode.add(tempNode.getTextContent());
+						input.add(tempNode.getTextContent());
 
 					if (tempNode.hasAttributes()) { // see if it has atributes
 
@@ -256,7 +256,7 @@ package translatorforandroidapps;
 
 							//System.out.println("atributo : " + node.getNodeName());
 							//System.out.println("namecode : " + node.getNodeValue());
-							input.add(node.getNodeValue()); // add value of node
+							namecode.add(node.getNodeValue()); // add value of node
 							if(node.getNodeName()=="translatable") { // if its untranslatable discard
 
 								untranslatable=true;
@@ -268,9 +268,9 @@ package translatorforandroidapps;
 							//System.out.println(namecode.size());
 							//System.out.println(input.size());
 
-							namecode.remove(namecode.size()-1);	
-							input.remove(input.size()-1);							
-							input.remove(input.size()-1);
+							input.remove(namecode.size()-1);	
+							namecode.remove(input.size()-1);							
+							namecode.remove(input.size()-1);
 							
 						}
 
