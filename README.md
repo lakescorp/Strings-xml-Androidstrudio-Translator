@@ -3,8 +3,6 @@
  
 # How to use
 
-The .jar is located in "build/".
-
 Execute the .jar with the console.
 
 ## Default lenguage
